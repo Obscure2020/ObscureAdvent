@@ -21,9 +21,7 @@ class Main{
     }
     Collections.sort(elves);
     Collections.reverse(elves);
-    int part1 = elves.get(0);
-    int part2 = elves.get(0) + elves.get(1) + elves.get(2);
-    System.out.println("Part #1 - " + part1);
-    System.out.println("Part #2 - " + part2);
+    System.out.println("Part #1 - " + elves.get(0));
+    System.out.println("Part #2 - " + elves.stream().limit(3).mapToInt(i->i).sum());
   }
 }

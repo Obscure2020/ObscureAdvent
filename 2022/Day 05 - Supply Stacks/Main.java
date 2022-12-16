@@ -8,7 +8,7 @@ class Main{
       String k = scan.nextLine();
       if(k.indexOf('[') < 0){
         int[] spots = IntStream.rangeClosed(0, k.length()-1).filter(i -> k.charAt(i)!=' ').toArray();
-        for(int i : spots) st.add(new ArrayDeque<>()); //Ignore the warning about i being unused on this line.
+        Arrays.stream(spots).forEach(i->st.add(new ArrayDeque<>()));
         while(strings.size()>0){
           String line = strings.pop();
           for(int i=0; i<spots.length; i++) if(spots[i]<line.length() && line.charAt(spots[i])!=' ') st.get(i).push(line.substring(spots[i],spots[i]+1));
