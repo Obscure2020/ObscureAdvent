@@ -8,7 +8,7 @@ class Main{
       String k = scan.nextLine();
       if(k.indexOf('[') < 0){
         int[] spots = IntStream.rangeClosed(0, k.length()-1).filter(i -> k.charAt(i)!=' ').toArray();
-        for(int i : spots) st.add(new ArrayDeque<>());
+        for(int i : spots) st.add(new ArrayDeque<>()); //Ignore the warning about i being unused on this line.
         while(strings.size()>0){
           String line = strings.pop();
           for(int i=0; i<spots.length; i++) if(spots[i]<line.length() && line.charAt(spots[i])!=' ') st.get(i).push(line.substring(spots[i],spots[i]+1));
@@ -19,8 +19,7 @@ class Main{
     }
   }
   private static void p(String s, ArrayList<ArrayDeque<String>> a){
-    System.out.print(s);
-    for(ArrayDeque<String> d : a) System.out.print(d.peek());
+    Stream.concat(Stream.of(s), a.stream().map(d->d.peek())).forEach(System.out::print);
     System.out.println();
   }
   public static void main(String[] args) throws Exception{
