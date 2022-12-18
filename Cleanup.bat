@@ -1,4 +1,4 @@
 @echo off
 del /s *.class
-del /s input.txt
+del /s *.txt
 pause
