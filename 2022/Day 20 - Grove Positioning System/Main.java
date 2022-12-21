@@ -36,6 +36,6 @@ class Main{
       }
     }
     final int start2 = mix.indexOf(IntStream.range(0,decrypt.length).filter(i->decrypt[i]==0).findFirst().getAsInt());
-    System.out.println("Part #2 - " + IntStream.of(1000,2000,3000).map(i->mix.get((start2+(int)i)%mix.size())).mapToLong(i->decrypt[i]).sum());
+    System.out.println("Part #2 - " + IntStream.of(1000,2000,3000).map(i->mix.get((start2+i)%mix.size())).mapToLong(i->decrypt[i]).sum());
   }
 }
