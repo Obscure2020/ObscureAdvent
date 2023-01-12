@@ -49,11 +49,11 @@ class Main{
     scan.close();
     int offset=0, zz=1;
     for(; needsMoving(elves); zz++){
-      final int[] needs = IntStream.range(0,elves.size()).parallel().filter(i->needsMoving(elves.get(i),elves)).toArray();
+      int[] needs = IntStream.range(0,elves.size()).parallel().filter(i->needsMoving(elves.get(i),elves)).toArray();
       ArrayList<IntPoint> wants = new ArrayList<>(needs.length);
       final int offCopy = offset;
       Arrays.stream(needs).mapToObj(i->propose(elves.get(i),elves,offCopy)).forEachOrdered(wants::add);
-      final int[] freqs = wants.stream().mapToInt(e->Collections.frequency(wants,e)).toArray();
+      int[] freqs = wants.stream().mapToInt(e->Collections.frequency(wants,e)).toArray();
       for(int i=0; i<needs.length; i++) if(freqs[i] == 1) elves.set(needs[i], wants.get(i));
       offset = (offset + 1) % 4;
       if(zz == 10){
