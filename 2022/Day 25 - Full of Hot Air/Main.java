@@ -1,16 +1,15 @@
 import java.util.*;
 import java.io.*;
 class Main{
-  private static long snafuToDecimal(String s){
+  private static long fromSnafu(String s){
     long pow = 1, total = 0;
-    for(int i=0; i<s.length(); i++){
-      char c = s.charAt(s.length()-i-1);
-      total += ("=-012".indexOf(c)-2) * pow;
+    for(int i=s.length()-1; i>=0; i--){
+      total += ("=-012".indexOf(s.charAt(i))-2) * pow;
       pow *= 5;
     }
     return total;
   }
-  private static String decimalToSnafu(long input){
+  private static String toSnafu(long input){
     StringBuilder sb = new StringBuilder();
     while(input > 0){
       int mod = (int) (input % 5);
@@ -26,7 +25,7 @@ class Main{
     Scanner scan = new Scanner(new File("input.txt"));
     while(scan.hasNext()) input.add(scan.nextLine());
     scan.close();
-    String part1 = decimalToSnafu(input.stream().parallel().mapToLong(Main::snafuToDecimal).sum());
+    String part1 = toSnafu(input.stream().parallel().mapToLong(Main::fromSnafu).sum());
     System.out.println("Answer: " + part1);
   }
 }
