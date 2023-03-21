@@ -8,10 +8,9 @@
       [else (readfile results (append current (list (string->number line))))]
     )
   )
+  (define (ldisplayln . in) (for-each display in) (newline))
   (define sorted (sort (readfile '() `()) >))
-  (display "Part #1 - ")
-  (displayln (first sorted))
-  (display "Part #2 - ")
-  (displayln (foldl + 0 (take sorted 3)))
+  (ldisplayln "Part #1 - " (first sorted))
+  (ldisplayln "Part #2 - " (foldl + 0 (take sorted 3)))
 )
 (with-input-from-file "input.txt" main #:mode 'text)
