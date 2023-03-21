@@ -1,0 +1,11 @@
+#lang racket
+(define (main)
+  (define (ldisplayln . in) (for-each display in) (newline))
+  (define input (string->list (read-line)))
+  (define (countUnique list) (length (remove-duplicates list)))
+  (define (chunks num) (map (lambda (n) (take (drop input n) num)) (inclusive-range 0 (- (length input) num))))
+  (define (result n) (+ (index-of (map countUnique (chunks n)) n) n))
+  (ldisplayln "Part #1 - " (result 4))
+  (ldisplayln "Part #2 - " (result 14))
+)
+(with-input-from-file "input.txt" main #:mode 'text)
