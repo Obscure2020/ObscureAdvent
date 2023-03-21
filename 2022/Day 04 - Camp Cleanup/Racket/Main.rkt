@@ -6,18 +6,12 @@
     (cond
       [(eof-object? read) (cons contains overlaps)]
       [else
-        (let* (
-          [lineSplit (map string->number (string-split read #rx",|-"))]
-          [one (first lineSplit)]
-          [two (list-ref lineSplit 1)]
-          [three (list-ref lineSplit 2)]
-          [four (last lineSplit)]
-          [contCheck (or (and (>= one three) (<= one four) (>= two three) (<= two four)) (and (>= three one) (<= three two) (>= four one) (<= four two)))]
-          [cont (if contCheck 1 0)]
-          [overCheck (or (and (>= one three) (<= one four)) (and (>= two three) (<= two four)) (and (>= three one) (<= three two)) (and (>= four one) (<= four two)))]
-          [over (if overCheck 1 0)]
+        (let*-values (
+          [(one two three four) (apply values (map string->number (string-split read #rx",|-")))]
+          [(contCheck) (or (and (>= one three) (<= one four) (>= two three) (<= two four)) (and (>= three one) (<= three two) (>= four one) (<= four two)))]
+          [(overCheck) (or (and (>= one three) (<= one four)) (and (>= two three) (<= two four)) (and (>= three one) (<= three two)) (and (>= four one) (<= four two)))]
           )
-          (readLoop (+ contains cont) (+ overlaps over))
+          (readLoop (+ contains (if contCheck 1 0)) (+ overlaps (if overCheck 1 0)))
         )
       ]
     )
