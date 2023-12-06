@@ -4,6 +4,9 @@ class Main{
   private static long[] stripLine(Scanner scan){
     return Arrays.stream(scan.nextLine().split("[:]")[1].trim().split(" +")).mapToLong(Long::parseLong).toArray();
   }
+  private static long arrSquish(long[] input){
+    return Long.parseLong(Arrays.stream(input).mapToObj(Long::toString).reduce(String::concat).get());
+  }
   public static void main(String[] args) throws Exception{
     final long[] times, distances;
     {
@@ -17,8 +20,8 @@ class Main{
       int len = preTimes.length + 1;
       long[] postTimes = Arrays.copyOf(preTimes, len);
       long[] postDistances = Arrays.copyOf(preDistances, len);
-      postTimes[len - 1] = Long.parseLong(Arrays.stream(preTimes).mapToObj(Long::toString).reduce(String::concat).get());
-      postDistances[len - 1] = Long.parseLong(Arrays.stream(preDistances).mapToObj(Long::toString).reduce(String::concat).get());
+      postTimes[len - 1] = arrSquish(preTimes);
+      postDistances[len - 1] = arrSquish(preDistances);
       times = postTimes;
       distances = postDistances;
     } // Get rid of temp objects and variables
