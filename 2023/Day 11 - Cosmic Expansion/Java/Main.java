@@ -38,7 +38,6 @@ class Main{
     return galaxies;
   }
   public static void main(String[] args) throws Exception{
-    //final long[] times, distances;
     ArrayList<Galaxy> galaxies = new ArrayList<>();
     Scanner scan = new Scanner(new File("input.txt"));
     int y = 0;
