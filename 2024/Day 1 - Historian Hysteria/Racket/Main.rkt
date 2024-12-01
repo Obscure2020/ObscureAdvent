@@ -5,19 +5,16 @@
 
 (define (readfile)
   (define line (read-line))
-  (if (eof-object? line)
-    (void)
-    (begin
-      (let* (
-          [parts (regexp-split #px"\\s+" line)]
-          [leftPart (string->number (car parts))]
-          [rightPart (string->number (cadr parts))]
-        )
-        (set! left (append left (list leftPart)))
-        (set! right (append right (list rightPart)))
-      )
+  (cond
+    [(eof-object? line) (void)]
+    [else
+      (define parts (regexp-split #px"\\s+" line))
+      (define leftPart (string->number (car parts)))
+      (define rightPart (string->number (cadr parts)))
+      (set! left (append left (list leftPart)))
+      (set! right (append right (list rightPart)))
       (readfile)
-    )
+    ]
   )
 )
 
