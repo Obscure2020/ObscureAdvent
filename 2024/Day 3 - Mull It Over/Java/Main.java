@@ -38,9 +38,9 @@ class Main {
     }
     public static void main(String[] args) throws Exception{
         String input = Files.readString(new File("input.txt").toPath()).strip();
-        String[] parts = findMatches(input, "mul\\([0-9]+,[0-9]+\\)");
+        String[] parts = findMatches(input, "mul\\(\\d+,\\d+\\)");
         System.out.println("Part #1 - " + Arrays.stream(parts).mapToLong(Main::evalMul).sum());
-        parts = findMatches(input, "(mul\\([0-9]+,[0-9]+\\))|(do\\(\\))|(don't\\(\\))");
+        parts = findMatches(input, "(mul\\(\\d+,\\d+\\))|(do\\(\\))|(don't\\(\\))");
         System.out.println("Part #2 - " + evalPart2(parts));
     }
 }
