@@ -1,4 +1,6 @@
-*.class
 Incomplete*/
+*.class
 *.txt
 *.bak
+*.png
+*.csv
