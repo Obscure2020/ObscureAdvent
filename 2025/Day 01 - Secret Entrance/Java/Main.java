@@ -1,5 +1,6 @@
 import java.nio.file.*;
 import java.util.*;
+import java.util.regex.Pattern;
 
 class Main {
     private static final String l1 = "L1";
@@ -37,8 +38,9 @@ class Main {
 
     public static void main(String[] args) throws Exception {
         List<String> turns = Files.newBufferedReader(Path.of("input.txt")).lines().map(String::strip).filter(s -> !s.isBlank()).toList();
+        Pattern p = Pattern.compile("^[LR]\\d+$");
         for(String turn : turns){
-            assert (turn.charAt(0) == 'L') || (turn.charAt(0) == 'R');
+            assert p.matcher(turn).matches();
         }
         System.out.println("Part #1 - " + part1(turns));
         System.out.println("Part #2 - " + part1(part2(turns)));
