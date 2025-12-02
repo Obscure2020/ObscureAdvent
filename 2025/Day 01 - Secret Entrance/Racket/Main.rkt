@@ -29,7 +29,6 @@
 )
 
 (define (part1 instrs)
-  (define data (cons 50 instrs))
   (define (prefix-sum prev data)
     (cond
       [(null? data) data]
@@ -42,7 +41,7 @@
   (define (zero-pos? num)
     (zero? (modulo num 100))
   )
-  (count zero-pos? (prefix-sum 0 data))
+  (count zero-pos? (prefix-sum 0 (cons 50 instrs)))
 )
 
 (define (part2 instrs)
@@ -52,8 +51,7 @@
   (flatten (map balloon instrs))
 )
 
-(define text-instructions (with-input-from-file "input.txt" readfile #:mode 'text))
-(define instructions (interpret-instructions text-instructions))
+(define instructions (interpret-instructions (with-input-from-file "input.txt" readfile #:mode 'text)))
 (display "Part #1 - ")
 (displayln (part1 instructions))
 (display "Part #2 - ")
