@@ -1,0 +1,68 @@
+#lang racket
+(require algorithms)
+
+(define-syntax-rule (assert condition message)
+  (if (not condition) (error message) (void))
+)
+
+(define (readfile)
+  (define line (read-line))
+  (if (eof-object? line) '()
+    (let ([trimmed (string-trim line)])
+      (if (non-empty-string? trimmed) (cons trimmed (readfile)) (readfile))
+    )
+  )
+)
+
+(define (interpret-instructions instrs)
+  (assert (list? instrs) "instrs was not a list.")
+  (assert (not (null? instrs)) "instrs is an empty list.")
+  (assert (andmap string? instrs) "instrs was not a list of strings.")
+  (define (valid-instr? chunk)
+    (regexp-match-exact? #px"[LR]\\d+" chunk)
+  )
+  (assert (andmap valid-instr? instrs) "instrs contains an invalid member.")
+  (define (proc-chunk chunk)
+    (string->number (string-replace (string-replace chunk "L" "-") "R" ""))
+  )
+  (map proc-chunk instrs)
+)
+
+(define (part1 instrs)
+  (define data (append (list 50) instrs))
+  (define (prefix-sum prev data)
+    (cond
+      [(null? data) data]
+      [else
+        (define bump (+ prev (car data)))
+        (cons bump (prefix-sum bump (cdr data)))
+      ]
+    )
+  )
+  (define (zero-pos? num)
+    (zero? (modulo num 100))
+  )
+  (count zero-pos? (prefix-sum 0 data))
+)
+
+(define (part2 instrs)
+  (define (balloon num)
+    (if (negative? num) (repeat (abs num) -1) (repeat num 1))
+  )
+  (flatten (map balloon instrs))
+)
+
+(define text-instructions (with-input-from-file "input.txt" readfile #:mode 'text))
+(define instructions (interpret-instructions text-instructions))
+(display "Part #1 - ")
+(displayln (part1 instructions))
+(display "Part #2 - ")
+(displayln (part1 (part2 instructions)))
+
+
+
+
+
+
+
+
