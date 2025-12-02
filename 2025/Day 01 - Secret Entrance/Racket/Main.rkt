@@ -29,7 +29,7 @@
 )
 
 (define (part1 instrs)
-  (define data (append (list 50) instrs))
+  (define data (cons 50 instrs))
   (define (prefix-sum prev data)
     (cond
       [(null? data) data]
@@ -58,11 +58,3 @@
 (displayln (part1 instructions))
 (display "Part #2 - ")
 (displayln (part1 (part2 instructions)))
-
-
-
-
-
-
-
-
